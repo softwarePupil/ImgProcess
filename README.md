@@ -49,7 +49,7 @@ python #进入python编译器
 import torch
 torch.cuda.is_available()
 ```
-![image.png](pic/image_3)<br />返回True表示GPU可以使用。
+![image.png](pic/image_3.jpg)<br />返回True表示GPU可以使用。
 <a name="Djnyr"></a>
 ## 训练数据
 <a name="gPQli"></a>
@@ -90,7 +90,7 @@ CUDA_VISIBLE_DEVICES=0 python train.py
 ```
 python predict.py
 ```
-![image_4.jpg](pic/image_3)
+![image_4.jpg](pic/image_3.jpg)
 <a name="kuy6N"></a>
 ## 测试集结果生成
 <a name="ueBuC"></a>
