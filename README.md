@@ -90,7 +90,7 @@ CUDA_VISIBLE_DEVICES=0 python train.py
 ```
 python predict.py
 ```
-![image_4.jpg](pic/image_3.jpg)
+![image_4.jpg](pic/image_4.jpg)
 <a name="kuy6N"></a>
 ## 测试集结果生成
 <a name="ueBuC"></a>
