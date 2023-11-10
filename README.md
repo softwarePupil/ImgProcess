@@ -58,8 +58,8 @@ torch.cuda.is_available()
 <a name="u93E6"></a>
 ### 下载权重
 ```
-voc预训练权重：
-50代预训练权重：
+voc预训练权重：https://pan.baidu.com/s/1GYWRPRgDxRr2CrPXCuUZ-A?pwd=mlo8 
+50代预训练权重：https://pan.baidu.com/s/1GA-D1NDgREBeLx9xxB6u2g?pwd=zp7e 
 ```
 预训练权重全部放入model_data目录中。
 <a name="uJjUV"></a>
