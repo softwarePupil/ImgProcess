@@ -27,7 +27,7 @@ classes_path        = 'model_data/classes.txt'
 #   仅在annotation_mode为0和1的时候有效
 #--------------------------------------------------------------------------------------------------------------------------------#
 trainval_percent    = 1.0
-train_percent       = 1.0
+train_percent       = 0.9
 #-------------------------------------------------------#
 #   指向VOC数据集所在的文件夹
 #   默认指向根目录下的VOC数据集
@@ -86,7 +86,7 @@ if __name__ == "__main__":
         print("train and val size",tv)
         print("train size",tr)
         ftrainval   = open(os.path.join(saveBasePath,'trainval.txt'), 'w')  
-        ftest       = open(os.path.join(saveBasePath,'test.txt'), 'w')  
+        #ftest       = open(os.path.join(saveBasePath,'test.txt'), 'w')  
         ftrain      = open(os.path.join(saveBasePath,'train.txt'), 'w')  
         fval        = open(os.path.join(saveBasePath,'val.txt'), 'w')  
         
@@ -98,13 +98,13 @@ if __name__ == "__main__":
                     ftrain.write(name)  
                 else:  
                     fval.write(name)  
-            else:  
-                ftest.write(name)  
+            #else:  
+            #    ftest.write(name)  
         
         ftrainval.close()  
         ftrain.close()  
         fval.close()  
-        ftest.close()
+        #ftest.close()
         print("Generate txt in ImageSets done.")
 
     if annotation_mode == 0 or annotation_mode == 2:

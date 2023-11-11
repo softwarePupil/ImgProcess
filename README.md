@@ -21,13 +21,24 @@ https://blog.csdn.net/sang_12345/article/details/125798317
 如果你的电脑不支持显卡运算，那么可以是用CPU进行模型的微调，这部分请参考“**特殊情况**”。
 <a name="q65Ff"></a>
 ### 安装
-最好使用校园网！<br />创建虚拟环境（我们使用的模型是CenterNet网络）
+如果你没有🪄，最好使用校园网！<br />创建虚拟环境（我们使用的模型是CenterNet网络）
 ```
 conda create --name CenterNet python=3.6 -y
 ```
 进入虚拟环境
 ```
 conda activate CenterNet
+```
+安装pytorch，首先检擦自己的cuda版本
+```
+nvcc -V
+```
+在这个网址中寻找pytorch先前版本（本教程按照pytorch1.6+cuda10.2举例子）
+```
+#网站：https://pytorch.org/get-started/previous-versions/
+#为了速度快使用国内镜像源：pip install torch==1.6.0 torchvision==0.7.0
+pip install torch==1.6.0 -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install torchvision==0.7.0 -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 挑选一个合适的路径（路径根据自己需要设置）
 ```
@@ -42,6 +53,7 @@ cd ImgProcess
 ```
 pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 pip install future -i https://pypi.tuna.tsinghua.edu.cn/simple
+#这一步可能会根据你电脑某个第三方库版本不兼容问题，只需要根据提示修改requirements.txt版本信息即可
 ```
 检查自己的GPU是否可以使用，结果如图：
 ```
@@ -54,16 +66,28 @@ torch.cuda.is_available()
 ## 训练数据
 <a name="gPQli"></a>
 ### 准备数据集
-首先下载数据集，你可以通过作业说明中的云盘，也可以通过百度网盘。<br />将下载好的名为VOC2007数据集放入**项目工程中的VOCdevkit目录中**。
+首先下载数据集，你可以通过作业说明中的云盘。将下载好的名为VOC2007数据集放入**项目工程中的VOCdevkit目录中**。
+```
+#你会发现数据分为zip.aa和zip.ab，这是因为咱们的网盘限制5G文件大小，
+#因此拆成两个，但是unzip前我们需要将他组装成一个
+cd VOCdevkit # 首先进入文件夹
+cat VOC2007.zip.* > VOC2007.zip
+unzip VOC2007.zip
+cd .. #返回上一级
+```
 <a name="u93E6"></a>
 ### 下载权重
 ```
 voc预训练权重：https://pan.baidu.com/s/1GYWRPRgDxRr2CrPXCuUZ-A?pwd=mlo8 
-50代预训练权重：https://pan.baidu.com/s/1GA-D1NDgREBeLx9xxB6u2g?pwd=zp7e 
+50代预训练权重：https://pan.baidu.com/s/1GA-D1NDgREBeLx9xxB6u2g?pwd=zp7e
 ```
 预训练权重全部放入model_data目录中。
 <a name="uJjUV"></a>
 ### 开始训练
+生成训练所需要的标签txt文件。
+```
+python voc_annotation.py
+```
 在训练开始前我们需要先理解train.py中的参数。
 ```
 #预训练权重，建议选择resnet50，占用显存少，或者选用预训练'model_data/centernet_resnet50_pertrain.pth'
@@ -75,7 +99,7 @@ UnFreeze_Epoch      = 12
 #批处理大小
 Unfreeze_batch_size = 4
 ```
-更多参数含义见train.py的注释。<br />开始训练（CUDA_VISIBLE_DEVICES=0代表只是用0号卡，不设置默认使用所有显卡）
+通过修改上面提到的图像尺寸、batch_size可以调整模型所占用的显存。<br />更多参数含义见train.py的注释。<br />开始训练（CUDA_VISIBLE_DEVICES=0代表只是用0号卡，不设置默认使用所有显卡）
 ```
 CUDA_VISIBLE_DEVICES=0 python train.py
 ```
@@ -95,6 +119,10 @@ python predict.py
 ## 测试集结果生成
 <a name="ueBuC"></a>
 ### 每张图像的测试结果
+在你的logs中找到最好的权重"best_epoch_weights.pth"<br />修改centernet.py文件里面的model_path
+```
+"model_path"        : 'logs/last_epoch_weights.pth',
+```
 测试集的图片已经包含在了"/VOCdevkit/VOC2007/JPEGImages"中。<br />所以只需要运行"get_map.py"函数，就可以得到测试集结果
 ```
 python get_map.py
