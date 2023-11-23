@@ -74,6 +74,9 @@ cd VOCdevkit # 首先进入文件夹
 cat VOC2007.zip.* > VOC2007.zip
 unzip VOC2007.zip
 cd .. #返回上一级
+#特别的如果你使用windows系统那么建议直接下载完整数据
+链接：https://pan.baidu.com/s/11rMFcyaF7O7RYJRmD3OABQ?pwd=dlk0 提取码：dlk0 
+#或者将后缀.aa、.ab改为.001和.002，使用解压软件如winRAR、Bandizip解压
 ```
 <a name="u93E6"></a>
 ### 下载权重
