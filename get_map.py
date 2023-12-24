@@ -102,7 +102,7 @@ if __name__ == "__main__":
                 path, extension = os.path.splitext(image_path)
                 new_image_path = path + ".bmp"
             #try:
-            image = Image.open(new_image_path)
+            	image = Image.open(new_image_path)
             #except FileNotFoundError:
             #    print("Both the original image and the BMP version could not be found.")
             if map_vis:
